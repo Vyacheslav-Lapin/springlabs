@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="person" class="lab.model.SimplePerson">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="John Smith"/>
+        <constructor-arg name="height" value="1.78"/>
+        <constructor-arg name="isProgrammer" value="true"/>
+        <constructor-arg name="contacts" ref="contacts"/>
+        <constructor-arg name="age" value="35"/>
+        <constructor-arg name="country" ref="country"/>
+    </bean>
+
+    <bean id="country" class="lab.model.Country">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="name" value="Russia"/>
+        <constructor-arg name="codeName" value="RU"/>
+    </bean>
+
+    <util:list id="contacts" value-type="java.lang.String">
+        <value>adf@epam.com</value>
+        <value>+7-905-222-3322</value>
+    </util:list>
+</beans>
