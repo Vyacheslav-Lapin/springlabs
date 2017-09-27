@@ -1,11 +1,12 @@
 package ioc;
 
+import lab.model.Person;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import lab.model.SimplePerson;
-import lab.model.Country;
+import lab.model.simple.SimplePerson;
+import lab.model.simple.SimpleCountry;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ class HelloWorldTest {
 		return new SimplePerson(
                 1,
                 "John Smith",
-                new Country(1, "Russia", "RU"),
+                new SimpleCountry(1, "Russia", "RU"),
                 35,
                 1.78f,
                 true,

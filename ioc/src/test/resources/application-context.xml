@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean id="person" class="lab.model.SimplePerson">
+    <bean id="person" class="lab.model.simple.SimplePerson">
         <constructor-arg name="id" value="1"/>
         <constructor-arg name="name" value="John Smith"/>
         <constructor-arg name="height" value="1.78"/>
         <constructor-arg name="isProgrammer" value="true"/>
-        <constructor-arg name="contacts" ref="contacts"/>
         <constructor-arg name="age" value="35"/>
         <constructor-arg name="country" ref="country"/>
+        <constructor-arg name="contacts" ref="contacts"/>
     </bean>
 
-    <bean id="country" class="lab.model.Country">
+    <bean id="country" class="lab.model.simple.SimpleCountry">
         <constructor-arg name="id" value="1"/>
         <constructor-arg name="name" value="Russia"/>
         <constructor-arg name="codeName" value="RU"/>
