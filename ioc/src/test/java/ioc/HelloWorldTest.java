@@ -1,6 +1,5 @@
 package ioc;
 
-import lab.model.Person;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,7 +23,6 @@ class HelloWorldTest {
 		assertEquals(getExpectedPerson(), context.getBean("person"));
 	}
 
-    @SuppressWarnings("WeakerAccess")
     public static SimplePerson getExpectedPerson() {
 		return new SimplePerson(
                 1,

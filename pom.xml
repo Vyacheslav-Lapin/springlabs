@@ -13,18 +13,6 @@
         <module>ioc</module>
     </modules>
 
-    <repositories>
-        <!--Spring-->
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>9</java.version>
@@ -98,6 +86,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!--Spring test-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>LATEST</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -118,6 +114,8 @@
                         <arg>-parameters</arg>
                         <!--<arg>&#45;&#45;add-modules=java.xml.ws.annotation</arg>-->
                         <!--<arg>&#45;&#45;permit-illegal-access</arg>-->
+
+                        <!--https://github.com/rzwitserloot/lombok/issues/985-->
                         <arg>-J--add-opens</arg>
                         <arg>-Jjdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
                         <arg>-J--add-opens</arg>
