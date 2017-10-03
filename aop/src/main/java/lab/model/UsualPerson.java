@@ -4,110 +4,131 @@ import java.util.List;
 
 public class UsualPerson implements Person {
     private int id;
-
     private String name;
-
     private Country country;
-
     private int age;
     private float height;
     private boolean isProgrammer;
-
     private List<String> contacts;
 
-    public void setIsProgrammer(boolean isProgrammer) {
-        this.isProgrammer = isProgrammer;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
-    }
-
-    public void setName(String name) {
+    public UsualPerson(int id, String name, Country country, int age, float height, boolean isProgrammer, List<String> contacts) {
+        this.id = id;
         this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void sayHello(Person person) {
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public boolean isProgrammer() {
-        return isProgrammer;
-    }
-
-    public void setProgrammer(boolean programmer) {
-        isProgrammer = programmer;
-    }
-
-    public List<String> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<String> contacts) {
+        this.age = age;
+        this.height = height;
+        this.isProgrammer = isProgrammer;
         this.contacts = contacts;
     }
 
+    public UsualPerson() {
+    }
+
     public int getId() {
-        return id;
+        return this.id;
     }
 
-    public void setId(int id) {
+    public String getName() {
+        return this.name;
+    }
+
+    public Country getCountry() {
+        return this.country;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public float getHeight() {
+        return this.height;
+    }
+
+    public boolean isProgrammer() {
+        return this.isProgrammer;
+    }
+
+    public List<String> getContacts() {
+        return this.contacts;
+    }
+
+    public UsualPerson setId(int id) {
         this.id = id;
+        return this;
     }
 
-    public String toString() {
-        String s = "Name: " + name + "\n"
-                + "Age: " + age + "\n"
-                + "Height: " + height + "\n"
-                + "Country: " + country + "\n"
-                + "Is Programmer?: " + isProgrammer + "\n";
-        if ((contacts != null) && (!contacts.isEmpty())) {
-            s += "Contacts: ";
-            for (String contact : contacts) {
-                s += contact + ", ";
-            }
-            s += "\n";
-        }
-        return s;
+    public UsualPerson setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public UsualPerson setCountry(Country country) {
+        this.country = country;
+        return this;
+    }
+
+    public UsualPerson setAge(int age) {
+        this.age = age;
+        return this;
+    }
+
+    public UsualPerson setHeight(float height) {
+        this.height = height;
+        return this;
+    }
+
+    public UsualPerson setProgrammer(boolean isProgrammer) {
+        this.isProgrammer = isProgrammer;
+        return this;
+    }
+
+    public UsualPerson setContacts(List<String> contacts) {
+        this.contacts = contacts;
+        return this;
     }
 
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UsualPerson person = (UsualPerson) o;
-
-        if (age != person.age) return false;
-        if (Float.compare(person.height, height) != 0) return false;
-        if (isProgrammer != person.isProgrammer) return false;
-        if (country != null ? !country.equals(person.country) : person.country != null) return false;
-        if (name != null ? !name.equals(person.name) : person.name != null) return false;
-
+        if (o == this) return true;
+        if (!(o instanceof UsualPerson)) return false;
+        final UsualPerson other = (UsualPerson) o;
+        if (!other.canEqual((Object) this)) return false;
+        if (this.getId() != other.getId()) return false;
+        final Object this$name = this.getName();
+        final Object other$name = other.getName();
+        if (this$name == null ? other$name != null : !this$name.equals(other$name)) return false;
+        final Object this$country = this.getCountry();
+        final Object other$country = other.getCountry();
+        if (this$country == null ? other$country != null : !this$country.equals(other$country)) return false;
+        if (this.getAge() != other.getAge()) return false;
+        if (Float.compare(this.getHeight(), other.getHeight()) != 0) return false;
+        if (this.isProgrammer() != other.isProgrammer()) return false;
+        final Object this$contacts = this.getContacts();
+        final Object other$contacts = other.getContacts();
+        if (this$contacts == null ? other$contacts != null : !this$contacts.equals(other$contacts)) return false;
         return true;
     }
 
     public int hashCode() {
-        int result;
-        result = (name != null ? name.hashCode() : 0);
-        result = 31 * result + age;
-        result = 31 * result + (height != +0.0f ? Float.floatToIntBits(height) : 0);
-        result = 31 * result + (isProgrammer ? 1 : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
+        final int PRIME = 59;
+        int result = 1;
+        result = result * PRIME + this.getId();
+        final Object $name = this.getName();
+        result = result * PRIME + ($name == null ? 43 : $name.hashCode());
+        final Object $country = this.getCountry();
+        result = result * PRIME + ($country == null ? 43 : $country.hashCode());
+        result = result * PRIME + this.getAge();
+        result = result * PRIME + Float.floatToIntBits(this.getHeight());
+        result = result * PRIME + (this.isProgrammer() ? 79 : 97);
+        final Object $contacts = this.getContacts();
+        result = result * PRIME + ($contacts == null ? 43 : $contacts.hashCode());
         return result;
+    }
+
+    protected boolean canEqual(Object other) {
+        return other instanceof UsualPerson;
+    }
+
+    public String toString() {
+        return "UsualPerson(id=" + this.getId() + ", name=" + this.getName() + ", country=" + this.getCountry() + ", age=" + this.getAge() + ", height=" + this.getHeight() + ", isProgrammer=" + this.isProgrammer() + ", contacts=" + this.getContacts() + ")";
     }
 }

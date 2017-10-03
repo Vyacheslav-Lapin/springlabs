@@ -1,0 +1,46 @@
+allprojects {
+    group = 'com.epam.jl.spring'
+    version = '1.0-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java'
+    sourceCompatibility = //1.8
+            targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+    }
+
+    configurations {
+        testCompile.extendsFrom compileOnly
+    }
+
+    // this turns logging on in tests:
+    test.testLogging.showStandardStreams = true
+
+    dependencies {
+        compile 'org.springframework:spring-context:5.0.0.RELEASE',
+
+                // AOP
+                'org.aspectj:aspectjrt:+',
+                'org.aspectj:aspectjweaver:+',
+                'aopalliance:aopalliance:+',
+
+                // Common
+                'org.apache.logging.log4j:log4j-core:+'
+
+        testCompile 'org.junit.jupiter:junit-jupiter-api:+',
+                'org.hamcrest:java-hamcrest:+',
+                'org.springframework:spring-test:+'
+
+        compileOnly 'org.projectlombok:lombok:+',
+                'edu.washington.cs.types.checker:checker-framework:+'
+    }
+}
+
+task Wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.2'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}

@@ -1,7 +1,8 @@
+package lab.aop;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
-import lab.aop.AopLog;
 import lab.model.ApuBar;
 import lab.model.Bar;
 import lab.model.Customer;
@@ -23,39 +24,46 @@ class AopAspectJTest {
 	@Autowired
     private Customer customer;
 
+    private String systemOut;
+
     @BeforeEach
     void setUp() {
-        bar.sellSquishee(customer);
+        systemOut = TestUtils.fromSystemOut(() -> bar.sellSquishee(customer));
     }
 
     @Test
     void testBeforeAdvice() {
-        assertTrue("Before advice is not good enought...", AopLog.getStringValue().contains("Hello"));
-        assertTrue("Before advice is not good enought...", AopLog.getStringValue().contains("How are you doing?"));
-        System.out.println(AopLog.getStringValue());
+        assertTrue("Before advice is not good enough...",
+                systemOut.contains("Hello"));
+
+        assertTrue("Before advice is not good enough...",
+                systemOut.contains("How are you doing?"));
     }
 
     @Test
     void testAfterAdvice() {
-        System.out.println(AopLog.getStringValue());
-        assertTrue("After advice is not good enought...", AopLog.getStringValue().contains("Good Bye!"));
+        assertTrue("After advice is not good enough...",
+                systemOut.contains("Good Bye!"));
     }
 
     @Test
     void testAfterReturningAdvice() {
-        assertTrue("Customer is broken", AopLog.getStringValue().contains("Good Enough?"));
-        System.out.println(AopLog.getStringValue());
+        assertTrue("Customer is broken",
+                systemOut.contains("Good Enough?"));
     }
 
     @Test
     void testAroundAdvice() {
-        assertTrue("Around advice is not good enought...", AopLog.getStringValue().contains("Hi!"));
-        assertTrue("Around advice is not good enought...", AopLog.getStringValue().contains("See you!"));
-        System.out.println(AopLog.getStringValue());
+        assertTrue("Around advice is not good enough...",
+                systemOut.contains("Hi!"));
+
+        assertTrue("Around advice is not good enough...",
+                systemOut.contains("See you!"));
     }
 
     @Test
     void testAllAdvices() {
-        assertFalse(bar instanceof ApuBar, "barObject instanceof ApuBar");
+        assertFalse(bar instanceof ApuBar,
+                "barObject instanceof ApuBar");
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import lab.model.simple.SimplePerson;
 import lab.model.simple.SimpleCountry;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,6 +32,6 @@ class HelloWorldTest {
                 35,
                 1.78f,
                 true,
-                List.of("adf@epam.com", "+7-905-222-3322"));
+				Arrays.asList("adf@epam.com", "+7-905-222-3322"));
 	}
 }
