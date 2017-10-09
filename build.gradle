@@ -2,45 +2,61 @@ allprojects {
     group = 'com.epam.jl.spring'
     version = '1.0-SNAPSHOT'
 }
+apply plugin: 'java'
+sourceCompatibility =
+        targetCompatibility = 1.8//9
 
-subprojects {
-    apply plugin: 'java'
-    sourceCompatibility = //1.8
-            targetCompatibility = 1.8
-
-    repositories {
-        mavenLocal()
+compileJava {
+    sourceCompatibility =
+    targetCompatibility = 1.8//9
+    options.with {
+        fork = true
+//        forkOptions.javaHome = new File ('')//java_home
+//        compilerArgs.addAll(['--add-exports', 'jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED'])
     }
+}
 
-    configurations {
-        testCompile.extendsFrom compileOnly
-    }
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
 
-    // this turns logging on in tests:
-    test.testLogging.showStandardStreams = true
+configurations {
+    testCompile.extendsFrom compileOnly
+}
 
-    dependencies {
-        compile 'org.springframework:spring-context:5.0.0.RELEASE',
+// this turns logging on in tests:
+test.testLogging.showStandardStreams = true
 
-                // AOP
-                'org.aspectj:aspectjrt:+',
-                'org.aspectj:aspectjweaver:+',
-                'aopalliance:aopalliance:+',
+//test {
+//    jvmArgs '--add-modules', 'java.xml.bind', '-Djdk.attach.allowAttachSelf=true'
+//}
 
-                // Common
-                'org.apache.logging.log4j:log4j-core:+'
+dependencies {
+    compile "org.springframework:spring-context:$springVersion",
 
-        testCompile 'org.junit.jupiter:junit-jupiter-api:+',
-                'org.hamcrest:java-hamcrest:+',
-                'org.springframework:spring-test:+'
+            // AOP
+            'org.aspectj:aspectjrt:+',
+            'org.aspectj:aspectjweaver:+',
+            'aopalliance:aopalliance:+',
 
-        compileOnly 'org.projectlombok:lombok:+',
-                'edu.washington.cs.types.checker:checker-framework:+'
-    }
+            // Common
+            'org.apache.logging.log4j:log4j-core:+'
+
+    runtime 'com.h2database:h2:+'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:+',
+            'org.hamcrest:java-hamcrest:+',
+            'org.springframework:spring-test:+'
+
+    compileOnly 'org.projectlombok:lombok:+',
+            'edu.washington.cs.types.checker:checker-framework:+'
 }
 
 task Wrapper(type: Wrapper) {
     description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.2'
+    gradleVersion = '4.2.1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
+
+

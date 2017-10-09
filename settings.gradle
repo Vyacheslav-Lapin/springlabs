@@ -1,6 +1,1 @@
 rootProject.name = 'springlabs'
-include ':ioc'
-include ':aop'
-
-project(':ioc').projectDir = "$rootDir/ioc" as File
-project(':aop').projectDir = "$rootDir/aop" as File
