@@ -6,7 +6,7 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <import resource="application-context.xml"/>
+    <import resource="jdbc.xml"/>
 
     <bean id="person" class="lab.model.simple.SimplePerson"
           c:id="1"

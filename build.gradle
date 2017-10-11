@@ -40,6 +40,10 @@ dependencies {
             'org.aspectj:aspectjweaver:+',
             'aopalliance:aopalliance:+',
 
+            // JDBC
+            'com.mchange:c3p0:+',
+            'org.springframework:spring-jdbc:+',
+
             // Common
             'org.apache.logging.log4j:log4j-core:+'
 

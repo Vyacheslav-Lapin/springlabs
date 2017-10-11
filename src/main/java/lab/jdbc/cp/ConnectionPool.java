@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import lombok.val;
 
-import javax.sql.DataSource;
 import java.io.*;
 import java.sql.*;
 import java.util.Locale;
@@ -23,11 +22,12 @@ public class ConnectionPool implements Supplier<Connection>, Closeable {
 
         val properties = new Properties() {
             @SneakyThrows
-            public Properties load(String name) {
-                try (val inputStream = ConnectionPool.class.getResourceAsStream(name)) {
+            Properties load() {
+                try (val inputStream = ConnectionPool.class.getResourceAsStream(
+                        "/jdbc.properties")) {
                     load(inputStream);
 
-                    assert size() == 5;
+                    assert size() > 3 && size() < 6;
                     assert containsKey("driver");
                     assert containsKey("url");
                     assert containsKey("user");
@@ -36,7 +36,7 @@ public class ConnectionPool implements Supplier<Connection>, Closeable {
                     return this;
                 }
             }
-        }.load("/jdbc.properties");
+        }.load();
 
         try {
             Class.forName((String) properties.remove("driver"));
@@ -44,10 +44,10 @@ public class ConnectionPool implements Supplier<Connection>, Closeable {
             throw new ConnectionPoolException("Can't find database driver class", e);
         }
 
-        String poolSizePropertyValue = (String) properties.remove("poolSize");
+        val poolSizePropertyValue = (String) properties.remove("poolSize");
         int poolSize = poolSizePropertyValue == null ? 5 : Integer.parseInt(poolSizePropertyValue);
 
-        String url = (String) properties.remove("url");
+        val url = (String) properties.remove("url");
 //        assert PROPERTIES.size() == 2;
 
         try {

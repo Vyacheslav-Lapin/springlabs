@@ -1,5 +1,6 @@
 package lab.jdbc.cp;
 
+import lombok.val;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -16,8 +17,8 @@ class ConnectionPoolTest {
     @Test
     void get() throws SQLException {
         Supplier<Connection> connectionSupplier = new ConnectionPool("/init.sql");
-        //language=SQL
-        String sql = "SELECT id, first_name, last_name, permission, dob, email, password, address, telephone FROM Person";
+        //language=H2
+        val sql = "SELECT id, first_name, last_name, permission, dob, email, password, address, telephone FROM Person";
 
         int count = 0;
         try (Connection connection = connectionSupplier.get();
@@ -29,6 +30,6 @@ class ConnectionPoolTest {
             }
         }
 
-        assertThat(count, is(4));
+        assertThat(count, is(5));
     }
 }
