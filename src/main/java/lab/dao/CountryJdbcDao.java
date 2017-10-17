@@ -5,7 +5,6 @@ import lab.model.simple.SimpleCountry;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
-import org.springframework.stereotype.Component;
 import java.util.List;
 
 //@Component

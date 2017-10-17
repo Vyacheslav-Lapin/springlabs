@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import lab.dao.CountryDao;
 import lab.dao.CountryJdbcDao;
 import lab.model.Country;
 import lab.model.simple.SimpleCountry;
@@ -24,14 +25,14 @@ class CountryDaoImplTest {
 	private Country exampleCountry = new SimpleCountry(1, "Australia", "AU");
 
 	@Autowired
-	private CountryJdbcDao countryJdbcDao;
+	private CountryDao countryJpaDao;
 
 	@Test
     void testSaveCountry() {
 
-		countryJdbcDao.save(exampleCountry);
+		countryJpaDao.save(exampleCountry);
 
-		List<Country> countryList = countryJdbcDao.getAllCountries();
+		List<Country> countryList = countryJpaDao.getAllCountries();
 		assertEquals(1, countryList.size());
 		assertEquals(exampleCountry, countryList.get(0));
 	}
@@ -39,16 +40,16 @@ class CountryDaoImplTest {
 	@Test
     void testGtAllCountries() {
 
-		countryJdbcDao.save(new SimpleCountry(1, "Canada", "CA"));
+		countryJpaDao.save(new SimpleCountry(1, "Canada", "CA"));
 
-		List<Country> countryList = countryJdbcDao.getAllCountries();
+		List<Country> countryList = countryJpaDao.getAllCountries();
 		assertEquals(2, countryList.size());
 	}
 
 	@Test
 	@SneakyThrows
     void testGetCountryByName() {
-		Country country = countryJdbcDao.getCountryByName("Australia");
+		Country country = countryJpaDao.getCountryByName("Australia");
 		assertEquals(exampleCountry, country);
 	}
 
