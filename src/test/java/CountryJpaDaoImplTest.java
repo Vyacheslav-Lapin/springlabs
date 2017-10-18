@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import lab.model.Country;
 import lab.model.simple.SimpleCountry;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,27 +22,29 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @Log4j2
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:orm.xml")
-class CountryDaoImplTest {
+class CountryJpaDaoImplTest {
 
 	private Country exampleCountry = new SimpleCountry(1, "Australia", "AU");
 
 	@Autowired
 	private CountryDao countryJpaDao;
 
+	@BeforeEach
+	void setUp() {
+		countryJpaDao.save(exampleCountry);
+	}
+
 	@Test
     void testSaveCountry() {
-
-		countryJpaDao.save(exampleCountry);
-
 		List<Country> countryList = countryJpaDao.getAllCountries();
-		assertEquals(1, countryList.size());
+		assertTrue(countryList.size() < 3);
 		assertEquals(exampleCountry, countryList.get(0));
 	}
 
 	@Test
-    void testGtAllCountries() {
+    void testGetAllCountries() {
 
-		countryJpaDao.save(new SimpleCountry(1, "Canada", "CA"));
+		countryJpaDao.save(new SimpleCountry(2, "Canada", "CA"));
 
 		List<Country> countryList = countryJpaDao.getAllCountries();
 		assertEquals(2, countryList.size());

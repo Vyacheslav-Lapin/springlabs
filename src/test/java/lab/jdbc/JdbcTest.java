@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration("classpath:jdbc.xml")
+@ContextConfiguration("classpath:orm.xml")
 class JdbcTest{
 
 	@Autowired
@@ -39,7 +39,7 @@ class JdbcTest{
     @Test
     @DirtiesContext
     void testCountryList() {
-        List<Country> countryList = countryJdbcDao.getCountryList();
+        List<Country> countryList = countryJdbcDao.getAllCountries();
         assertNotNull(countryList);
         assertEquals(expectedCountryList.size(), countryList.size());
         for (int i = 0; i < expectedCountryList.size(); i++) {

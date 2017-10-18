@@ -1,5 +1,6 @@
 package lab.dao.jpa;
 
+import lombok.Setter;
 import lombok.val;
 
 import javax.persistence.EntityManager;
@@ -11,13 +12,10 @@ import java.util.function.Function;
 
 public class AbstractJpaDao {
 
-    EntityManagerFactory emf;
+    @Setter(onMethod = @__(@PersistenceUnit))
+    private EntityManagerFactory emf;
 
-	@PersistenceUnit
-	public void setEntityManagerFactory(EntityManagerFactory emf) {
-		this.emf = emf;
-	}
-
+    @SuppressWarnings("WeakerAccess")
 	public <T> T mapEntityManagerFactory(Function<EntityManagerFactory, T> emfMapper) {
 	    return emfMapper.apply(emf);
     }
@@ -27,6 +25,7 @@ public class AbstractJpaDao {
 	    entityManagerFactoryConsumer.accept(emf);
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected <T> T mapEntityManager(Function<EntityManager, T> emMapper) {
 	    return mapEntityManagerFactory(emf -> {
 	        val em = emf.createEntityManager();
@@ -39,6 +38,7 @@ public class AbstractJpaDao {
         });
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected void withEntityManager(Consumer<EntityManager> entityManagerConsumer) {
 	    withEntityManagerFactory(emf -> {
 	        val em = emf.createEntityManager();
@@ -49,9 +49,10 @@ public class AbstractJpaDao {
         });
     }
 
-    protected <T> T mapEntityManagerUnderTransaction(Function<EntityManager, T> emMapper) {
+    @SuppressWarnings("WeakerAccess")
+    protected <T> T mapEntityManagerInTransaction(Function<EntityManager, T> emMapper) {
 	    return mapEntityManager(em -> {
-            EntityTransaction transaction = em.getTransaction();
+            val transaction = em.getTransaction();
             transaction.begin();
             T t = emMapper.apply(em);
             transaction.commit();
@@ -59,9 +60,10 @@ public class AbstractJpaDao {
         });
     }
 
-    protected void withEntityManagerUnderTransaction(Consumer<EntityManager> entityManagerConsumer) {
+    @SuppressWarnings("WeakerAccess")
+    protected void withEntityManagerInTransaction(Consumer<EntityManager> entityManagerConsumer) {
         withEntityManager(em -> {
-            EntityTransaction transaction = em.getTransaction();
+            val transaction = em.getTransaction();
             transaction.begin();
             entityManagerConsumer.accept(em);
             transaction.commit();

@@ -2,8 +2,7 @@ package lab.dao.jpa;
 
 import lab.dao.CountryDao;
 import lab.model.Country;
-import lab.model.simple.SimpleCountry;
-import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,22 +11,23 @@ import java.util.List;
 public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
 
     @Override
-    public void save(Country country) {
-        withEntityManagerUnderTransaction(em -> em.merge(country));
+    public void save(@NotNull Country country) {
+        withEntityManagerInTransaction(em -> em.merge(country));
     }
 
     @Override
     public List<Country> getAllCountries() {
-        return mapEntityManagerUnderTransaction(em ->
-            em.createQuery("select c.codeName from Country c" , Country.class)
-                    .getResultList());
+        return mapEntityManager(em ->
+                em.createQuery("select c from Country c", Country.class)
+                        .getResultList());
     }
 
     @Override
     public Country getCountryByName(String name) {
-//		TODO: Implement it
-
-        return null;
+        return mapEntityManager(em ->
+                em.createQuery("select c from Country c where c.name like :name",
+                        Country.class).setParameter("name", name)
+                        .getSingleResult());
     }
 
 }
