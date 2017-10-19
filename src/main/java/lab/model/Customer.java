@@ -11,7 +11,7 @@ public interface Customer extends Person {
     /** WARN: Method for test-only uses only! Don`t use it for business-logic */
     @SneakyThrows
     default Person setBroke(boolean broke) {
-        Field brokeField = this.getClass().getField("broke");
+        Field brokeField = this.getClass().getDeclaredField("broke");
         brokeField.setAccessible(true);
         brokeField.set(this, broke);
         return this;

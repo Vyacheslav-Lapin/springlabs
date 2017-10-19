@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//@Repository
-public class CountryJpaDaoImpl extends AbstractJpaDao implements CountryDao {
+@Repository
+public class CountryJpaDao extends AbstractJpaDao implements CountryDao {
 
     @Override
     public void save(@NotNull Country country) {

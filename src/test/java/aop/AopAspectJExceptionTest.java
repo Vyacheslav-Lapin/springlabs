@@ -29,7 +29,7 @@ class AopAspectJExceptionTest {
     private Customer customer;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         customer.setBroke(true);
     }
 

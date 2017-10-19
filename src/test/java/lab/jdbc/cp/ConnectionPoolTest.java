@@ -2,6 +2,7 @@ package lab.jdbc.cp;
 
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ class ConnectionPoolTest {
 
         int count = 0;
         try (Connection connection = connectionSupplier.get();
-             Statement statement = connection.createStatement();
+             val statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 System.out.println(resultSet.getString("first_name"));
@@ -30,6 +31,6 @@ class ConnectionPoolTest {
             }
         }
 
-        assertThat(count, is(5));
+        assertThat(count, is(4));
     }
 }

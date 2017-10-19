@@ -26,8 +26,13 @@ class AopAspectJTest {
 	@Autowired
     private Customer customer;
 
-    private String systemOut = TestUtils.fromSystemOut(() ->
-            bar.sellSquishee(customer));
+    private String systemOut;
+
+    @BeforeEach
+    void setUp() {
+        systemOut = TestUtils.fromSystemOut(() ->
+                bar.sellSquishee(customer));
+    }
 
     @Test
     void testBeforeAdvice() {

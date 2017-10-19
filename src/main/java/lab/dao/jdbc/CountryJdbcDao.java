@@ -1,5 +1,7 @@
-package lab.dao;
+package lab.dao.jdbc;
 
+import lab.dao.CountryDao;
+import lab.dao.CountryNotFoundException;
 import lab.model.Country;
 import lab.model.simple.SimpleCountry;
 import lombok.val;

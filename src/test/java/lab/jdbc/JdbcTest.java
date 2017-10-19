@@ -1,6 +1,7 @@
 package lab.jdbc;
 
-import lab.dao.CountryJdbcDao;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import lab.dao.jdbc.CountryJdbcDao;
 import lab.model.Country;
 import lab.model.simple.SimpleCountry;
 import org.junit.jupiter.api.BeforeEach;
