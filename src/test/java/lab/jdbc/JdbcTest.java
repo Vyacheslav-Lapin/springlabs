@@ -1,11 +1,7 @@
 package lab.jdbc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lab.dao.CountryJdbcDao;
 import lab.model.Country;
-
 import lab.model.simple.SimpleCountry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,16 +11,19 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration("classpath:orm.xml")
-class JdbcTest{
+@ContextConfiguration("classpath:jdbc.xml")
+class JdbcTest {
 
-	@Autowired
-	private CountryJdbcDao countryJdbcDao;
-	
+    @Autowired
+    private CountryJdbcDao countryJdbcDao;
+
     private List<Country> expectedCountryList = new ArrayList<>();
     private List<Country> expectedCountryListStartsWithA = new ArrayList<>();
     private Country countryWithChangedName = new SimpleCountry(8, "Russia", "RU");
@@ -35,7 +34,7 @@ class JdbcTest{
         countryJdbcDao.loadCountries();
     }
 
-    
+
     @Test
     @DirtiesContext
     void testCountryList() {
@@ -66,13 +65,13 @@ class JdbcTest{
     }
 
     private void initExpectedCountryLists() {
-         for (int i = 0; i < CountryJdbcDao.COUNTRY_INIT_DATA.length;) {
-             String[] countryInitData = CountryJdbcDao.COUNTRY_INIT_DATA[i];
-             Country country = new SimpleCountry(++i, countryInitData[0], countryInitData[1]);
-             expectedCountryList.add(country);
-             if (country.getName().startsWith("A")) {
-                 expectedCountryListStartsWithA.add(country);
-             }
-         }
-     }
+        for (int i = 0; i < CountryJdbcDao.COUNTRY_INIT_DATA.length; ) {
+            String[] countryInitData = CountryJdbcDao.COUNTRY_INIT_DATA[i];
+            Country country = new SimpleCountry(++i, countryInitData[0], countryInitData[1]);
+            expectedCountryList.add(country);
+            if (country.getName().startsWith("A")) {
+                expectedCountryListStartsWithA.add(country);
+            }
+        }
+    }
 }

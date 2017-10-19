@@ -6,7 +6,11 @@
 
     <import resource="jdbc.xml"/>
 
-    <bean id="countryJpaDao" class="lab.dao.jpa.CountryJpaDaoImpl"/>
+    <bean id="countryJpaDao"
+          class="lab.dao.jpa.CountryJpaDaoImpl"/>
+
+    <bean id="timeWeaver"
+          class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
 
     <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
@@ -14,7 +18,5 @@
           p:persistenceProviderClass="org.hibernate.jpa.HibernatePersistenceProvider"
           p:loadTimeWeaver-ref="timeWeaver"/>
 
-    <bean id="timeWeaver"
-          class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
 
 </beans>
