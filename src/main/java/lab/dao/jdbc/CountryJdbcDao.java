@@ -11,12 +11,16 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
-//@Component
+@Repository
 public class CountryJdbcDao extends NamedParameterJdbcDaoSupport implements CountryDao {
     public static final String[][] COUNTRY_INIT_DATA = {
             {"Australia", "AU"},
@@ -49,6 +53,10 @@ public class CountryJdbcDao extends NamedParameterJdbcDaoSupport implements Coun
             rs.getInt("id"),
             rs.getString("name"),
             rs.getString("code_name"));
+
+    public CountryJdbcDao(DataSource dataSource) {
+        setDataSource(dataSource);
+    }
 
     public List<Country> getAllCountries() {
         return getJdbcTemplate().query(

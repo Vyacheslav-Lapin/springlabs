@@ -1,6 +1,5 @@
 package lab.jdbc;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lab.dao.jdbc.CountryJdbcDao;
 import lab.model.Country;
 import lab.model.simple.SimpleCountry;
@@ -31,7 +30,14 @@ class JdbcTest {
 
     @BeforeEach
     void setUp() {
-        initExpectedCountryLists();
+        for (int i = 0; i < CountryJdbcDao.COUNTRY_INIT_DATA.length; ) {
+            String[] countryInitData = CountryJdbcDao.COUNTRY_INIT_DATA[i];
+            String name = countryInitData[0];
+            Country country = new SimpleCountry(++i, name, countryInitData[1]);
+            expectedCountryList.add(country);
+            if (name.startsWith("A"))
+                expectedCountryListStartsWithA.add(country);
+        }
         countryJdbcDao.loadCountries();
     }
 
@@ -53,9 +59,8 @@ class JdbcTest {
         List<Country> countryList = countryJdbcDao.getCountryListStartWith("A");
         assertNotNull(countryList);
         assertEquals(expectedCountryListStartsWithA.size(), countryList.size());
-        for (int i = 0; i < expectedCountryListStartsWithA.size(); i++) {
+        for (int i = 0; i < expectedCountryListStartsWithA.size(); i++)
             assertEquals(expectedCountryListStartsWithA.get(i), countryList.get(i));
-        }
     }
 
     @Test
@@ -63,16 +68,5 @@ class JdbcTest {
     void testCountryChange() {
         countryJdbcDao.updateCountryName("RU", "Russia");
         assertEquals(countryWithChangedName, countryJdbcDao.getCountryByCodeName("RU"));
-    }
-
-    private void initExpectedCountryLists() {
-        for (int i = 0; i < CountryJdbcDao.COUNTRY_INIT_DATA.length; ) {
-            String[] countryInitData = CountryJdbcDao.COUNTRY_INIT_DATA[i];
-            Country country = new SimpleCountry(++i, countryInitData[0], countryInitData[1]);
-            expectedCountryList.add(country);
-            if (country.getName().startsWith("A")) {
-                expectedCountryListStartsWithA.add(country);
-            }
-        }
     }
 }
