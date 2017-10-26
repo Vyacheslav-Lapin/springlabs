@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/StandaloneController")
+@WebServlet("/hello-world")
 public class StandaloneController extends HttpServlet {
 
     @Override
