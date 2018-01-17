@@ -3,7 +3,31 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-         version="4.0"><!--metadata-complete="true"-->
+         version="4.0">
+
+    <display-name>Spring 5 MVC Example</display-name>
+    <description>Spring 5 MVC Example</description>
+
+    <!--<context-param>-->
+        <!--<param-name>contextConfigLocation</param-name>-->
+        <!--<param-value>/WEB-INF/spring-mvc-servlet.xml</param-value>-->
+    <!--</context-param>-->
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>spring-mvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>spring-mvc</servlet-name>
+        <url-pattern>*.form</url-pattern>
+    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>log-controller</servlet-name>
@@ -14,20 +38,5 @@
         <servlet-name>log-controller</servlet-name>
         <url-pattern>/log</url-pattern>
     </servlet-mapping>
-
-
-    <!--<servlet>-->
-        <!--<servlet-name>ParametrizedController</servlet-name>-->
-        <!--<servlet-class>demo.web.ParametrizedController</servlet-class>-->
-        <!--<init-param>-->
-            <!--<param-name>max-age</param-name>-->
-            <!--<param-value>132</param-value>-->
-        <!--</init-param>-->
-    <!--</servlet>-->
-
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>ParametrizedController</servlet-name>-->
-        <!--<url-pattern>/parametrized</url-pattern>-->
-    <!--</servlet-mapping>-->
 
 </web-app>

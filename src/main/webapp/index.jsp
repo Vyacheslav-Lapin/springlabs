@@ -25,6 +25,8 @@
                 <input type="submit" value="Отправить"/><br/>
             </form>
         </li>
+        <li><a href="${pageContext.request.contextPath}/user/all.form">users list</a></li>
+        <li><a href="${pageContext.request.contextPath}/user/add.form">add user</a></li>
     </ul>
 
 

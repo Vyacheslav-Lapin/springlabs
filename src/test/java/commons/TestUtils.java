@@ -15,16 +15,14 @@ public interface TestUtils {
 
         PrintStream realOut = System.out;
 
-        try (val out = new ByteArrayOutputStream();
-             val printStream = new PrintStream(out)) {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+             PrintStream printStream = new PrintStream(out)) {
 
             System.setOut(printStream);
             runnable.run();
 
             return new String(out.toByteArray()); // .intern()
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         } finally {
             System.setOut(realOut);
         }

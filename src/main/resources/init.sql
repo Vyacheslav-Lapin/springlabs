@@ -1,6 +1,18 @@
 SET MODE POSTGRESQL;
 
-CREATE TABLE Person (
+CREATE TABLE IF NOT EXISTS Country (
+  id        IDENTITY,
+  name      VARCHAR(255),
+  code_name VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS User (
+  id         IDENTITY,
+  first_name VARCHAR(20),
+  last_name  VARCHAR(30)
+);
+
+CREATE TABLE IF NOT EXISTS Person (
   id         INT PRIMARY KEY AUTO_INCREMENT,
   first_name VARCHAR(255) NOT NULL,
   last_name  VARCHAR(255),
@@ -13,22 +25,22 @@ CREATE TABLE Person (
 );
 
 INSERT INTO Person (first_name, last_name, permission, dob, email, password, address, telephone)
-VALUES ('Jose', 'Eglesias', TRUE, '1980-06-15', 'Jose_Eglesias@mail.es', 'qwerty', 'Franco squere, 5/1, 10',
+VALUES ('Jose', 'Eglesias', TRUE, '1980-06-15', 'Jose_Eglesias@mail.es', 'qwerty', 'Franco square, 5/1, 10',
         '+38007654321');
 
 INSERT INTO Person (first_name, last_name, permission, dob, email, password, address, telephone)
-VALUES ('John', 'Eglesias', TRUE, '1980-06-15', 'John_Eglesias@mail.es', 'qwerty', 'Franco squere, 5/1, 10',
+VALUES ('John', 'Eglesias', TRUE, '1980-06-15', 'John_Eglesias@mail.es', 'qwerty', 'Franco square, 5/1, 10',
         '+38007654321');
 
 INSERT INTO Person (first_name, last_name, dob, email, password, address, telephone)
-VALUES ('Pit', 'Eglesias', '1980-06-15', 'Pit_Eglesias@mail.es', 'qwerty', 'Franco squere, 5/1, 10',
+VALUES ('Pit', 'Eglesias', '1980-06-15', 'Pit_Eglesias@mail.es', 'qwerty', 'Franco square, 5/1, 10',
         '+38007654321');
 
 INSERT INTO Person (first_name, last_name, permission, dob, email, password, address, telephone)
-VALUES ('Aisha', 'Eglesias', TRUE, '1980-06-15', 'Aisha_Eglesias@mail.es', 'qwerty', 'Franco squere, 5/1, 10',
+VALUES ('Aisha', 'Eglesias', TRUE, '1980-06-15', 'Aisha_Eglesias@mail.es', 'qwerty', 'Franco square, 5/1, 10',
         '+38007654321');
 
-CREATE TABLE Gun (
+CREATE TABLE IF NOT EXISTS Gun (
   id      INT PRIMARY KEY AUTO_INCREMENT,
   name    VARCHAR(255) NOT NULL,
   caliber DOUBLE       NOT NULL
@@ -40,7 +52,7 @@ INSERT INTO Gun (name, caliber) VALUES ('Glock', 9.0);
 INSERT INTO Gun (name, caliber) VALUES ('AKM-47', 7.62);
 INSERT INTO Gun (name, caliber) VALUES ('AK-74', 5.45);
 
-CREATE TABLE Instance (
+CREATE TABLE IF NOT EXISTS Instance (
   id       INT PRIMARY KEY AUTO_INCREMENT,
   model_id INT NOT NULL,
   FOREIGN KEY (model_id) REFERENCES Gun (id)

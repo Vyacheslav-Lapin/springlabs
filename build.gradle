@@ -2,23 +2,15 @@ allprojects {
     group = 'com.epam.jl.spring'
     version = '1.0-SNAPSHOT'
 }
+apply plugin: 'java'
 apply plugin: 'war'
 
-apply plugin: 'java'
+//noinspection GroovyUnusedAssignment
 sourceCompatibility =
-        targetCompatibility = 1.8//9
-
-compileJava {
-    sourceCompatibility =
-    targetCompatibility = 1.8//9
-    options.with {
-        fork = true
-//        forkOptions.javaHome = new File ('')//java_home
-//        compilerArgs.addAll(['--add-exports', 'jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED'])
-    }
-}
+        targetCompatibility = 10
 
 repositories {
+    flatDir { dirs 'lib' }
     mavenCentral()
     mavenLocal()
 }
@@ -30,12 +22,9 @@ configurations {
 // this turns logging on in tests:
 test.testLogging.showStandardStreams = true
 
-//test {
-//    jvmArgs '--add-modules', 'java.xml.bind', '-Djdk.attach.allowAttachSelf=true'
-//}
-
 dependencies {
-    compile "org.springframework:spring-context:$springVersion",
+    //noinspection SpellCheckingInspection
+    compile 'org.springframework:spring-context:+',
 
             // AOP
             'org.aspectj:aspectjrt:+',
@@ -43,7 +32,7 @@ dependencies {
             'aopalliance:aopalliance:+',
 
             // JDBC
-            'com.mchange:c3p0:+',
+//            'com.mchange:c3p0:+',
             'org.springframework:spring-jdbc:+',
 
             // ORM
@@ -51,6 +40,18 @@ dependencies {
             'org.hibernate:hibernate-validator:+',
 //            'org.hibernate:hibernate-java8:+',
             'org.springframework:spring-orm:+',
+
+            // MVC
+            'org.springframework:spring-webmvc:+',
+            'org.codehaus.castor:castor-xml:+',
+
+            // Quartz
+//            'org.quartz-scheduler:quartz:+',
+//            'org.springframework:spring-context-support:+',
+
+            // JSTL
+            'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:+',
+            'org.glassfish.web:javax.servlet.jsp.jstl:+',
 
             // Common
             'org.apache.logging.log4j:log4j-core:+'
@@ -61,23 +62,22 @@ dependencies {
             'org.hamcrest:java-hamcrest:+',
             'org.springframework:spring-test:+'
 
-    compileOnly 'org.projectlombok:lombok:+',
+    //noinspection SpellCheckingInspection
+    compileOnly ':lombok-edge:', //'org.projectlombok:lombok:+'
 
             // Tomcat
             'org.apache.tomcat:tomcat-api:+',
             'org.apache.tomcat:tomcat-jsp-api:+',
+//            'org.glassfish.main.web:web-core:+',
 
             'edu.washington.cs.types.checker:checker-framework:+'
 }
 
+// type in terminal: ./gradlew wrapper --gradle-version=4.4-rc-1
 task Wrapper(type: Wrapper) {
     description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.3-rc-2'
+    gradleVersion = '4.4-rc-1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
-
-
-
-
 
 

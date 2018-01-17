@@ -30,7 +30,8 @@ class HelloWorldTest {
 		val contacts = Arrays.asList("adf@epam.com", "+7-905-222-3322");
 		return new SimplePerson(
                 1,
-                "John Smith",
+                "John",
+				"Smith",
 				country,
                 35,
                 1.78f,

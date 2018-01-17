@@ -7,11 +7,12 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <import resource="application-context.xml"/>
+    <import resource="applicationContext.xml"/>
 
     <bean id="person" class="lab.model.simple.SimplePerson"
           c:id="1"
-          c:name="John Smith"
+          c:firstName="John"
+          c:lastName="Smith"
           c:height="1.78"
           c:isProgrammer="true"
           c:age="35"

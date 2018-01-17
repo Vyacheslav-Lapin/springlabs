@@ -8,7 +8,6 @@ import lab.model.Customer;
 import lab.model.simple.ApuBar;
 import lab.model.Bar;
 
-import lab.model.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

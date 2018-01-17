@@ -1,7 +1,6 @@
 package lab.jdbc;
 
-import lab.service.CountryService;
-import org.junit.jupiter.api.BeforeEach;
+import lab.service.tx.CountryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +11,14 @@ import org.springframework.transaction.IllegalTransactionStateException;
 import org.springframework.transaction.annotation.Propagation;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration("classpath:tx.xml")
-class DeclarativeTransactionTest extends JdbcTest {
-    
-	@Autowired
-	private CountryService countryService;
+class DeclarativeTransactionTest {
 
-    @BeforeEach
-    void setUp() {
-        super.setUp();
-    }
+    @Autowired
+    private CountryService countryService;
 
     @Test
     @DirtiesContext
@@ -41,12 +35,8 @@ class DeclarativeTransactionTest extends JdbcTest {
     @Test
     @DirtiesContext
     void testMandatoryPropagationWithoutTransaction() {
-        try {
-            countryService.getAllCountriesMandatory();
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalTransactionStateException);
-            e.printStackTrace();
-        }
+        assertThrows(IllegalTransactionStateException.class, () ->
+                countryService.getAllCountriesMandatory());
     }
 
     @Test

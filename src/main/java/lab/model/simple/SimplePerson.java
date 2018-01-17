@@ -10,7 +10,8 @@ import java.util.List;
 @Value
 public class SimplePerson implements Person {
     private int id;
-    private String name;
+    private final String firstName;
+    private final String lastName;
     private Country country;
 
     private int age;

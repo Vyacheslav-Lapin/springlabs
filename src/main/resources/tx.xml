@@ -10,7 +10,7 @@
     <tx:annotation-driven/>
 
     <import resource="jdbc.xml"/>
-    <context:component-scan base-package="lab.service"/>
+    <context:component-scan base-package="lab.service.tx"/>
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
